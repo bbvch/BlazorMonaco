@@ -853,3 +853,22 @@ window.blazorMonaco.editor = {
 
     //#endregion
 }
+
+window.blazorMonaco.languages = {
+    json: {
+        jsonDefaults: {
+            setDiagnosticsOptions(options) {
+                const diagnostics = JSON.parse(options)
+                diagnostics.schemas = diagnostics.schemas.map((schema) => {
+                    return {
+                        ...schema,
+                        schema: JSON.parse(schema.schema)
+                    }
+                })
+                monaco.languages.json.jsonDefaults.setDiagnosticsOptions(diagnostics)
+            }
+        }
+    }
+}
+
+
